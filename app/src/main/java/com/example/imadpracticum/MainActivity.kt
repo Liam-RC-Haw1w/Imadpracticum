@@ -35,5 +35,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ImadpracticumTheme {
+                var currentScreen by remember { mutableStateOf(value=Screen.MAIN) }
 
             }
