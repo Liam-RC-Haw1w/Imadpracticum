@@ -1,3 +1,4 @@
+// ST10499386 - Liam David Kaal
 package com.example.imadpracticum
 
 
@@ -149,6 +150,7 @@ class MainActivity : ComponentActivity() {
                                     }
 
                                     Spacer(modifier = Modifier.height(height=8.dp))
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
                                     Text(text = message)
 
                                     Spacer(modifier = Modifier.height(height=16.dp))
@@ -183,6 +185,7 @@ class MainActivity : ComponentActivity() {
                                         } else {
                                             buildFullList(
                                                 MovieTitle,
+                                                MovieTitle= MovieTitle,
                                                 Director = Director,
                                                 Rating = Rating,
                                                 comments
@@ -197,6 +200,7 @@ class MainActivity : ComponentActivity() {
                                     Button(onClick = {
                                         listDisplay =
                                             buildTwoOrMoreList(MovieTitle, Rating = Rating)
+                                            buildTwoOrMoreList(MovieTitle=MovieTitle, Rating = Rating)
                                     }) {
                                         Text(text = "Show Movies (Rating ≥ 2)")
                                     }
@@ -213,6 +217,7 @@ class MainActivity : ComponentActivity() {
                                     Button(onClick = {
                                         currentScreen =
                                             com.example.imadpracticum..MainActivity.Screen.MAIN
+                                            MainActivity.Screen.MAIN
                                     }) {
                                         Text(text = "Back to Main Screen")
                                     }
@@ -225,8 +230,32 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+private fun buildFullList(
+    MovieTitle: List<String>,
+    Director: List<String>,
+    Rating: List<Int>,
+    comments: List<String>
+): String {
+    val sb = StringBuilder()
+    for (i in MovieTitle.indices) {
+        sb.append("MovieTitle: ${MovieTitle[i]}\n")
+        sb.append("Director: ${Director[i]}\n")
+        sb.append("Rating: ${Rating[i]}\n")
+        sb.append("Comments: ${comments[i]}\n\n")
+    }
+    return sb.toString()
+}
 
 
+private fun buildTwoOrMoreList(names: List<String>, qtys: List<Int>): String {
+    val filtered = names.indices.filter { qtys[it] >= 2 }
+    if (filtered.isEmpty()) return "No items with quantity 2 or more."
+    val sb = StringBuilder()
+    for (i in filtered) {
+        sb.append("${names[i]} - Quantity: ${qtys[i]}\n")
+    }
+    return sb.toString()
+}
 
 
 
