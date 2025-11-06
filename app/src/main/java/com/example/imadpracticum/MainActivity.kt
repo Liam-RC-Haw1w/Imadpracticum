@@ -2,6 +2,7 @@ package com.example.imadpracticum
 
 
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ImadpracticumTheme {
-                var currentScreen by remember { mutableStateOf(value=Screen.MAIN) }
+                var currentScreen by remember { mutableStateOf(value = Screen.MAIN) }
             }
 
             ImadpracticumTheme {
@@ -52,9 +53,15 @@ class MainActivity : ComponentActivity() {
                 var Director by remember { mutableStateOf(value="") }
                 var Rating by remember { mutableStateOf(value="") }
                 var comments by remember { mutableStateOf(value="") }
+                var MovieTitle by remember { mutableStateOf(value = "") }
+                var Director by remember { mutableStateOf(value = "") }
+                var Rating by remember { mutableStateOf(value = "") }
+                var comments by remember { mutableStateOf(value = "") }
 
                 var message by remember { mutableStateOf(value="") }
                 var listDisplay by remember { mutableStateOf(value="") }
+                var message by remember { mutableStateOf(value = "") }
+                var listDisplay by remember { mutableStateOf(value = "") }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -83,29 +90,37 @@ class MainActivity : ComponentActivity() {
                                         value = MovieTitle,
                                         onValueChange = { MovieTitle = it },
                                         label = { Text(text="Item Name") }
+                                        label = { Text(text = "Movie Name") }
                                     )
                                     Spacer(modifier = Modifier.height(height=8.dp))
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
 
                                     OutlinedTextField(
                                         value = Director,
                                         onValueChange = { Director = it },
                                         label = { Text(text="Category") }
+                                        label = { Text(text = "Director") }
                                     )
                                     Spacer(modifier = Modifier.height(height=8.dp))
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
 
                                     OutlinedTextField(
                                         value = Rating,
                                         onValueChange = { Rating = it },
                                         label = { Text(text="Rating") }
+                                        label = { Text(text = "Rating") }
                                     )
                                     Spacer(modifier = Modifier.height(height=8.dp))
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
 
                                     OutlinedTextField(
                                         value = comments,
                                         onValueChange = { comments = it },
                                         label = { Text(text="Comments") }
+                                        label = { Text(text = "Comments") }
                                     )
                                     Spacer(modifier = Modifier.height(height=16.dp))
+                                    Spacer(modifier = Modifier.height(height = 16.dp))
 
                                     Button(onClick = {
                                         try {
@@ -119,6 +134,7 @@ class MainActivity : ComponentActivity() {
                                                 comments.add(comments)
 
                                                 message = "✅ Item added!"
+                                                message = "Information added!"
                                                 MovieTitle = ""
                                                 Director = ""
                                                 Rating = ""
@@ -129,6 +145,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }) {
                                         Text(text="Add to Movie ratihngs to List")
+                                        Text(text = "Add to Movie ratings to List")
                                     }
 
                                     Spacer(modifier = Modifier.height(height=8.dp))
@@ -137,18 +154,81 @@ class MainActivity : ComponentActivity() {
                                     Spacer(modifier = Modifier.height(height=16.dp))
                                     Button(onClick = { currentScreen = com.example.imadpracticum..MainActivity.Screen.LIST }) {
                                         Text(text="View Packing List")
+                                    Spacer(modifier = Modifier.height(height = 16.dp))
+                                    Button(onClick = {
+                                        currentScreen =
+                                            com.example.imadpracticum..MainActivity.Screen.LIST
+                                    }) {
+                                        Text(text = "View Movie Rating List")
                                     }
 
                                     Spacer(modifier = Modifier.height(height=8.dp))
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
                                     Button(onClick = { finishAffinity() }) {
                                         Text(text="Exit App")
+                                        Text(text = "Exit App")
                                     }
                                 }
+                                // Review screen
+                                com.example.imadpracticum.MainActivity.Screen.LIST -> {
+                                    Text(
+                                        text = "Your information list",
+                                        style = MaterialTheme.typography.headlineSmall
+                                    )
+                                    Spacer(modifier = Modifier.height(height = 16.dp))
 
+                                    Button(onClick = {
+                                        listDisplay = if (MovieTitle.isEmpty()) {
+                                            "No items added yet."
+                                        } else {
+                                            buildFullList(
+                                                MovieTitle,
+                                                Director = Director,
+                                                Rating = Rating,
+                                                comments
+                                            )
+                                        }
+                                    }) {
+                                        Text(text = "Show Full Packing List")
+                                    }
 
+                                    Spacer(modifier = Modifier.height(height = 8.dp))
 
+                                    Button(onClick = {
+                                        listDisplay =
+                                            buildTwoOrMoreList(MovieTitle, Rating = Rating)
+                                    }) {
+                                        Text(text = "Show Movies (Rating ≥ 2)")
+                                    }
 
-                
+                                    Spacer(modifier = Modifier.height(height = 16.dp))
 
+                                    Text(
+                                        text = listDisplay,
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
 
+                                    Spacer(modifier = Modifier.height(height = 16.dp))
+
+                                    Button(onClick = {
+                                        currentScreen =
+                                            com.example.imadpracticum..MainActivity.Screen.MAIN
+                                    }) {
+                                        Text(text = "Back to Main Screen")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        }
+    }
+}
+
+
+
+
+
+
+
