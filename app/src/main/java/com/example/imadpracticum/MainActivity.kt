@@ -36,5 +36,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             ImadpracticumTheme {
                 var currentScreen by remember { mutableStateOf(value=Screen.MAIN) }
+            }
+
+            ImadpracticumTheme {
+                var currentScreen by remember { mutableStateOf(value=Screen.MAIN) }
+
+                // Parallel arrays
+                val MovieTitle = remember { mutableStateListOf<String>() }
+                val Director = remember { mutableStateListOf<String>() }
+                val Rating = remember { mutableStateListOf<Int>() }
+                val comments = remember { mutableStateListOf<String>() }
+
+                // Input fields
+                var MovieTitle by remember { mutableStateOf(value="") }
+                var Director by remember { mutableStateOf(value="") }
+                var Rating by remember { mutableStateOf(value="") }
+                var comments by remember { mutableStateOf(value="") }
+
+                var message by remember { mutableStateOf(value="") }
+                var listDisplay by remember { mutableStateOf(value="") }
+
+                
+
 
             }
