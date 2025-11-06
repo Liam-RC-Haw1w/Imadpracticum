@@ -55,6 +55,98 @@ class MainActivity : ComponentActivity() {
 
                 var message by remember { mutableStateOf(value="") }
                 var listDisplay by remember { mutableStateOf(value="") }
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(all=16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.verticalScroll(state=rememberScrollState())
+                        ) {
+                            when (currentScreen) {
+
+
+                                com.example.imadpracticum..MainActivity.Screen.MAIN -> {
+                                    Text(
+                                        text = "The movie rating app",
+                                        style = MaterialTheme.typography.headlineSmall
+                                    )
+                                    Spacer(modifier = Modifier.height(height=16.dp))
+
+                                    OutlinedTextField(
+                                        value = MovieTitle,
+                                        onValueChange = { MovieTitle = it },
+                                        label = { Text(text="Item Name") }
+                                    )
+                                    Spacer(modifier = Modifier.height(height=8.dp))
+
+                                    OutlinedTextField(
+                                        value = Director,
+                                        onValueChange = { Director = it },
+                                        label = { Text(text="Category") }
+                                    )
+                                    Spacer(modifier = Modifier.height(height=8.dp))
+
+                                    OutlinedTextField(
+                                        value = Rating,
+                                        onValueChange = { Rating = it },
+                                        label = { Text(text="Rating") }
+                                    )
+                                    Spacer(modifier = Modifier.height(height=8.dp))
+
+                                    OutlinedTextField(
+                                        value = comments,
+                                        onValueChange = { comments = it },
+                                        label = { Text(text="Comments") }
+                                    )
+                                    Spacer(modifier = Modifier.height(height=16.dp))
+
+                                    Button(onClick = {
+                                        try {
+                                            if (MovieTitle.isBlank() || Director.isBlank() || Rating.isBlank()) {
+                                                message = "⚠️ Please fill in all fields!"
+                                            } else {
+                                                val qty = Rating.toInt()
+                                                MovieTitle.add(MovieTitle)
+                                                Director.add(Director)
+                                                Rating.add(Rating)
+                                                comments.add(comments)
+
+                                                message = "✅ Item added!"
+                                                MovieTitle = ""
+                                                Director = ""
+                                                Rating = ""
+                                                comments = ""
+                                            }
+                                        } catch (e: NumberFormatException) {
+                                            message = "Rating must be a number!"
+                                        }
+                                    }) {
+                                        Text(text="Add to Movie ratihngs to List")
+                                    }
+
+                                    Spacer(modifier = Modifier.height(height=8.dp))
+                                    Text(text = message)
+
+                                    Spacer(modifier = Modifier.height(height=16.dp))
+                                    Button(onClick = { currentScreen = com.example.imadpracticum..MainActivity.Screen.LIST }) {
+                                        Text(text="View Packing List")
+                                    }
+
+                                    Spacer(modifier = Modifier.height(height=8.dp))
+                                    Button(onClick = { finishAffinity() }) {
+                                        Text(text="Exit App")
+                                    }
+                                }
+
+
+
 
                 
 
